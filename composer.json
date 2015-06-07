@@ -1,0 +1,22 @@
+{
+    "name": "jandreasn/lockout-authentication",
+    "type": "library",
+    "description": "Simple authenticator with lockout.",
+    "keywords": ["authentication", "authenticator"],
+    "homepage": "http://github.com/jandreasn/lockout-authentication",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andreas Nilsson"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0"
+    },
+    "require-dev": {
+      "phpunit/phpunit": "^4.7"
+    },
+    "autoload": {
+      "psr-4": { "LockoutAuthentication\\": "src" }
+    }
+}
