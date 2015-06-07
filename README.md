@@ -20,9 +20,10 @@ if ($authenticator->authenticate($user, $_POST['password'])) {
     // Place code to login user here
     echo 'You are now logged in!';
 } elseif ($authenticator->isLoginBlocked()) {
-   echo 'Your account has temporarily been locked due to multiple failed login attempts. Try again later.';
+    echo 'Your account has temporarily been locked due to multiple '
+        . 'failed login attempts. Try again later.';
 } else {
-   echo 'The username or password is incorrect!';
+    echo 'The username or password is incorrect!';
 }
 
 // Place code to save the $user object to persistent storage here
