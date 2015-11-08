@@ -21,17 +21,17 @@ class AuthenticatorTest extends PHPUnit_Framework_TestCase
         $this->password = '123';
         $this->passwordHash = $this->authenticator->createPasswordHash($this->password);
 
-        $this->mockAuthenticatableUser = $this->getMock('\SimpleAuthentication\AuthenticatableUserInterface');
+        $this->mockAuthenticatableUser = $this->getMock('\LockoutAuthentication\AuthenticatableUserInterface');
         $this->mockAuthenticatableUser->expects($this->any())
             ->method('getPasswordHash')
             ->will($this->returnValue($this->passwordHash));
     }
 
     /**
-     * @covers SimpleAuthentication\Authenticator::__construct
-     * @covers SimpleAuthentication\Authenticator::authenticate
-     * @covers SimpleAuthentication\Authenticator::isLoginBlocked
-     * @covers SimpleAuthentication\Authenticator::shouldLockoutBeCleared
+     * @covers LockoutAuthentication\Authenticator::__construct
+     * @covers LockoutAuthentication\Authenticator::authenticate
+     * @covers LockoutAuthentication\Authenticator::isLoginBlocked
+     * @covers LockoutAuthentication\Authenticator::shouldLockoutBeCleared
      */
     public function testAuthenticateBlocked()
     {
@@ -45,8 +45,8 @@ class AuthenticatorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers SimpleAuthentication\Authenticator::authenticate
-     * @covers SimpleAuthentication\Authenticator::clearLockout
+     * @covers LockoutAuthentication\Authenticator::authenticate
+     * @covers LockoutAuthentication\Authenticator::clearLockout
      */
     public function testAuthenticateSuccess()
     {
@@ -55,8 +55,8 @@ class AuthenticatorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers SimpleAuthentication\Authenticator::authenticate
-     * @covers SimpleAuthentication\Authenticator::createPasswordHash
+     * @covers LockoutAuthentication\Authenticator::authenticate
+     * @covers LockoutAuthentication\Authenticator::createPasswordHash
      */
     public function testAuthenticateSuccessWithRehash()
     {
@@ -66,9 +66,9 @@ class AuthenticatorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers SimpleAuthentication\Authenticator::authenticate
-     * @covers SimpleAuthentication\Authenticator::shouldLockoutBeCleared
-     * @covers SimpleAuthentication\Authenticator::addFailedLoginAttempt
+     * @covers LockoutAuthentication\Authenticator::authenticate
+     * @covers LockoutAuthentication\Authenticator::shouldLockoutBeCleared
+     * @covers LockoutAuthentication\Authenticator::addFailedLoginAttempt
      */
     public function testAuthenticateFail()
     {
@@ -81,7 +81,7 @@ class AuthenticatorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers SimpleAuthentication\Authenticator::createPasswordHash
+     * @covers LockoutAuthentication\Authenticator::createPasswordHash
      */
     public function testCreatePasswordHashFail()
     {
