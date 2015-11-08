@@ -1,4 +1,9 @@
 # Lockout Authenticator
+
+[![Latest Stable Version](https://poser.pugx.org/jandreasn/lockout-authentication/v/stable)](https://packagist.org/packages/jandreasn/lockout-authentication)
+[![Build Status](https://travis-ci.org/jandreasn/lockout-authentication.svg?branch=master)](https://travis-ci.org/jandreasn/lockout-authentication)
+[![License](https://poser.pugx.org/jandreasn/lockout-authentication/license)](https://packagist.org/packages/jandreasn/lockout-authentication)
+
 This simple PHP authenticator uses the built in PHP password hashing and verification functions to authenticate
 user objects implementing the provided interface. It has a lockout mechanism preventing users from logging in for
 a few seconds after they failed to login multiple times, making brute force attacks less effective.
