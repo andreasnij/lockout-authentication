@@ -14,7 +14,7 @@ Add the package as a requirement to your `composer.json`:
 $ composer require jandreasn/lockout-authenticator
 ```
 
-##Usage
+## Usage
 ```php
 <?php
 
@@ -35,11 +35,11 @@ if ($authenticator->authenticate($user, $_POST['password'])) {
 ```
 
 
-##Requirements
+## Requirements
 - Lockout Authenticator requires PHP 5.5 or above.
 
-##Author
+## Author
 Andreas Nilsson <http://github.com/jandreasn>
 
-##License
+## License
 Lockout Authenticator is licensed under the MIT License - see the `LICENSE` file for details.
