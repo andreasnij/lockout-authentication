@@ -1,0 +1,8 @@
+parameters:
+    paths:
+        - src
+        - tests
+    level: 5
+    checkMissingIterableValueType: false
+    ignoreErrors:
+        - '#Parameter \#1 \$callback of function set_error_handler.*#'

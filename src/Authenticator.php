@@ -11,8 +11,6 @@ namespace LockoutAuthentication;
 /**
  * Lockout authentication authenticates a user with a
  * lockout if after multiple failed attempts.
- *
- * @author Andreas Nilsson <http://github.com/jandreasn>
  */
 class Authenticator
 {
@@ -27,7 +25,7 @@ class Authenticator
     const DEFAULT_LOCKOUT_CLEAR_TIME = 300;
 
     /**
-     * @var int
+     * @var string|int
      */
     protected $hashAlgorithm = PASSWORD_DEFAULT;
 
@@ -45,7 +43,6 @@ class Authenticator
      * @var int
      */
     protected $lockoutClearTime = self::DEFAULT_LOCKOUT_CLEAR_TIME;
-
 
     /**
      * Constructor.
@@ -139,7 +136,7 @@ class Authenticator
 
         // Prevent user from additional login attempts for some seconds, preventing brute force attacks
         if ($user->getFailedLoginAttempts() > $this->attemptsBeforeLockout) {
-            $blockUntil = time() + mt_rand(2, 10);
+            $blockUntil = time() + random_int(2, 10);
             $user->setLoginBlockedUntilTime($blockUntil);
         }
     }

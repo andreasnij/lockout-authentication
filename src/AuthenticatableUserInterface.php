@@ -8,9 +8,6 @@
 
 namespace LockoutAuthentication;
 
-/**
- * @author Andreas Nilsson <http://github.com/jandreasn>
- */
 interface AuthenticatableUserInterface
 {
     /**

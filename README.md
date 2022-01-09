@@ -1,7 +1,6 @@
 # Lockout Authenticator
 
 [![Latest Stable Version](https://poser.pugx.org/jandreasn/lockout-authentication/v/stable)](https://packagist.org/packages/jandreasn/lockout-authentication)
-[![Build Status](https://travis-ci.org/jandreasn/lockout-authentication.svg?branch=master)](https://travis-ci.org/jandreasn/lockout-authentication)
 [![License](https://poser.pugx.org/jandreasn/lockout-authentication/license)](https://packagist.org/packages/jandreasn/lockout-authentication)
 
 This simple PHP authenticator uses the built in PHP password hashing and verification functions to authenticate
@@ -16,7 +15,6 @@ $ composer require jandreasn/lockout-authenticator
 
 ## Usage
 ```php
-<?php
 
 use LockoutAuthentication\Authenticator;
 
@@ -36,10 +34,10 @@ if ($authenticator->authenticate($user, $_POST['password'])) {
 
 
 ## Requirements
-- Lockout Authenticator requires PHP 5.5 or above.
+- Lockout Authenticator requires PHP 7.4 or above.
 
 ## Author
-Andreas Nilsson <http://github.com/jandreasn>
+Andreas Nilsson <http://github.com/andreasnij>
 
 ## License
-Lockout Authenticator is licensed under the MIT License - see the `LICENSE` file for details.
+Lockout Authenticator is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.

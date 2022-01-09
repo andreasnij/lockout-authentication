@@ -1,15 +1,22 @@
 <?php
 
+namespace LockoutAuthentication\Tests;
+
+use Error;
 use LockoutAuthentication\Authenticator;
+use LockoutAuthentication\AuthenticatableUserInterface;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
-class AuthenticatorTest extends PHPUnit_Framework_TestCase
+class AuthenticatorTest extends TestCase
 {
-    private $authenticator;
-    private $mockAuthenticatableUser;
-    private $password;
-    private $passwordHash;
+    private Authenticator $authenticator;
+    private string $password;
 
-    public function setUp()
+    /** @var MockObject&AuthenticatableUserInterface  */
+    private MockObject $mockAuthenticatableUser;
+
+    protected function setUp(): void
     {
         $this->authenticator = new Authenticator([
             'hashAlgorithm' => PASSWORD_DEFAULT,
@@ -19,77 +26,53 @@ class AuthenticatorTest extends PHPUnit_Framework_TestCase
         ]);
 
         $this->password = '123';
-        $this->passwordHash = $this->authenticator->createPasswordHash($this->password);
+        $passwordHash = $this->authenticator->createPasswordHash($this->password);
 
-        $this->mockAuthenticatableUser = $this->getMock('\LockoutAuthentication\AuthenticatableUserInterface');
-        $this->mockAuthenticatableUser->expects($this->any())
-            ->method('getPasswordHash')
-            ->will($this->returnValue($this->passwordHash));
+        $this->mockAuthenticatableUser = $this->createMock(AuthenticatableUserInterface::class);
+        $this->mockAuthenticatableUser->method('getPasswordHash')
+            ->willReturn($passwordHash);
     }
 
-    /**
-     * @covers LockoutAuthentication\Authenticator::__construct
-     * @covers LockoutAuthentication\Authenticator::authenticate
-     * @covers LockoutAuthentication\Authenticator::isLoginBlocked
-     * @covers LockoutAuthentication\Authenticator::shouldLockoutBeCleared
-     */
     public function testAuthenticateBlocked()
     {
         $this->mockAuthenticatableUser->expects($this->any())
             ->method('getLoginBlockedUntilTime')
-            ->will($this->returnValue(time() + 10));
+            ->willReturn(time() + 10);
 
         $result = $this->authenticator->authenticate($this->mockAuthenticatableUser, $this->password);
         $this->assertFalse($result);
         $this->assertTrue($this->authenticator->isLoginBlocked($this->mockAuthenticatableUser));
     }
 
-    /**
-     * @covers LockoutAuthentication\Authenticator::authenticate
-     * @covers LockoutAuthentication\Authenticator::clearLockout
-     */
     public function testAuthenticateSuccess()
     {
         $result = $this->authenticator->authenticate($this->mockAuthenticatableUser, $this->password);
         $this->assertTrue($result);
     }
 
-    /**
-     * @covers LockoutAuthentication\Authenticator::authenticate
-     * @covers LockoutAuthentication\Authenticator::createPasswordHash
-     */
-    public function testAuthenticateSuccessWithRehash()
+    public function testAuthenticateSuccessWithRehash(): void
     {
-        $newAuthenticator = new Authenticator(['hashOptions' => ['cost' => 5]]); // Create new authenticator with options so that rehash code will be run
+        // Create new authenticator with options so that rehash code will be run
+        $newAuthenticator = new Authenticator(['hashOptions' => ['cost' => 5]]);
         $result = $newAuthenticator->authenticate($this->mockAuthenticatableUser, $this->password);
         $this->assertTrue($result);
     }
 
-    /**
-     * @covers LockoutAuthentication\Authenticator::authenticate
-     * @covers LockoutAuthentication\Authenticator::shouldLockoutBeCleared
-     * @covers LockoutAuthentication\Authenticator::addFailedLoginAttempt
-     */
     public function testAuthenticateFail()
     {
         $this->mockAuthenticatableUser->expects($this->any())
             ->method('getFailedLoginAttempts')
-            ->will($this->returnValue(5));
+            ->willReturn(5);
 
         $result = $this->authenticator->authenticate($this->mockAuthenticatableUser, 'invalid-password');
         $this->assertFalse($result);
     }
 
-    /**
-     * @covers LockoutAuthentication\Authenticator::createPasswordHash
-     */
     public function testCreatePasswordHashFail()
     {
-        // Try to authenticate with non existent algorithm
-        $authenticatior = new Authenticator(['hashAlgorithm' => 123]);
-        $this->setExpectedException('\RuntimeException');
-        $authenticatior->createPasswordHash($this->password);
+        // Try to authenticate with non-existent algorithm
+        $authenticator = new Authenticator(['hashAlgorithm' => 123]);
+        $this->expectException(Error::class);
+        $authenticator->createPasswordHash($this->password);
     }
-
-
 }
