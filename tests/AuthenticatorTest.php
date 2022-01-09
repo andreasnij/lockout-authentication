@@ -2,7 +2,6 @@
 
 namespace LockoutAuthentication\Tests;
 
-use Error;
 use LockoutAuthentication\Authenticator;
 use LockoutAuthentication\AuthenticatableUserInterface;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -72,7 +71,13 @@ class AuthenticatorTest extends TestCase
     {
         // Try to authenticate with non-existent algorithm
         $authenticator = new Authenticator(['hashAlgorithm' => 123]);
-        $this->expectException(Error::class);
+
+        if (PHP_VERSION_ID >= 80000) {
+            $this->expectException(\Error::class);
+        } else {
+            $this->expectException(\RuntimeException::class);
+        }
+
         $authenticator->createPasswordHash($this->password);
     }
 }

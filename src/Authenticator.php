@@ -25,7 +25,7 @@ class Authenticator
     const DEFAULT_LOCKOUT_CLEAR_TIME = 300;
 
     /**
-     * @var string|int
+     * @var string
      */
     protected $hashAlgorithm = PASSWORD_DEFAULT;
 
@@ -172,6 +172,7 @@ class Authenticator
         restore_error_handler();
         error_reporting($errorLevel);
 
+        // For PHP 7.4 (password_hash() no longer returns false on failure since 8.0)
         if (!$hash) {
             throw new \RuntimeException("Password hashing failed: {$hashError}");
         }
