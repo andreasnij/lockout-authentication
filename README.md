@@ -1,16 +1,15 @@
 # Lockout Authenticator
 
-[![Latest Stable Version](https://poser.pugx.org/jandreasn/lockout-authentication/v/stable)](https://packagist.org/packages/jandreasn/lockout-authentication)
-[![License](https://poser.pugx.org/jandreasn/lockout-authentication/license)](https://packagist.org/packages/jandreasn/lockout-authentication)
+[![Latest Stable Version](https://poser.pugx.org/andreasnij/lockout-authentication/v/stable)](https://packagist.org/packages/andreasnij/lockout-authentication)
 
-This simple PHP authenticator uses the built in PHP password hashing and verification functions to authenticate
+This simple PHP authenticator uses the built-in PHP password hashing and verification functions to authenticate
 user objects implementing the provided interface. It has a lockout mechanism preventing users from logging in for
 a few seconds after they failed to login multiple times, making brute force attacks less effective.
 
 ## Installation
 Add the package as a requirement to your `composer.json`:
 ```bash
-$ composer require jandreasn/lockout-authenticator
+$ composer require andreasnij/lockout-authenticator
 ```
 
 ## Usage

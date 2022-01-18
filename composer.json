@@ -1,9 +1,9 @@
 {
-    "name": "jandreasn/lockout-authentication",
+    "name": "andreasnij/lockout-authentication",
     "type": "library",
     "description": "Simple authenticator with lockout.",
     "keywords": ["authentication", "authenticator"],
-    "homepage": "http://github.com/jandreasn/lockout-authentication",
+    "homepage": "http://github.com/andreasnij/lockout-authentication",
     "license": "MIT",
     "authors": [
         {
